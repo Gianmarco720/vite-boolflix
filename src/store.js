@@ -28,5 +28,19 @@ export const store = reactive({
                 console.log(err.message);
                 store.error = err.message;
             });
+    },
+    flag(language) {
+        if (language === 'en') {
+            return 'https://countryflagsapi.com/png/GB'
+        } else if (language === 'fr') {
+            return 'https://countryflagsapi.com/png/FR'
+        } else if (language === 'it') {
+            return 'https://countryflagsapi.com/png/IT'
+        } else if (language === 'jp') {
+            return 'https://countryflagsapi.com/png/JP'
+        }
+        else {
+            return 'https://countryflagsapi.com/png/' + language
+        }
     }
 })

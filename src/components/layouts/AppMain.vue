@@ -1,25 +1,22 @@
 <script>
 import { store } from '../../store.js'
+import MovieList from '../MovieList.vue';
 export default {
-    name: 'AppMain',
+    name: "AppMain",
+    components: {
+        MovieList
+    },
     data() {
         return {
             store
-        }
-    }
+        };
+    },
 }
 </script>
 
 <template>
     <main>
-        <ul v-if="store.results">
-            <li v-for="movie in store.results.results">
-                {{ movie.title }}
-                {{ movie.original_title }}
-                {{ movie.original_language }}
-                {{ movie.vote_average }}
-            </li>
-        </ul>
+        <MovieList />
     </main>
 </template>
 
