@@ -17,7 +17,7 @@ export default {
 <template>
     <header>
         <div class="logo">
-            Logo
+            <h1>BOOLFLIX</h1>
         </div>
 
         <SearchBox @performSearch="store.callApi" />

@@ -12,11 +12,11 @@ export default {
 
 <template>
     <ul v-if="store.results">
-        <li v-for="movie in store.results.results">
-            {{ movie.title }}
-            {{ movie.original_title }}
-            <img :src="store.flag(movie.original_language)" alt="" class="my_flag">
-            {{ movie.vote_average }}
+        <li v-for="media in store.results.results">
+            {{ media.title }}
+            {{ media.original_title }}
+            <img :src="store.flag(media.original_language)" alt="" class="my_flag">
+            {{ media.vote_average }}
         </li>
     </ul>
 </template>
