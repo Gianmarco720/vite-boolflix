@@ -1,11 +1,10 @@
-
 <script>
 // import store JS object
 import { store } from '../store.js'
 // import single button component
 import ButtonComponent from "./ButtonComponent.vue";
 export default {
-    name: "SearchBox",
+    name: "SearchButton",
     data() {
         return {
             store

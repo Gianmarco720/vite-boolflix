@@ -1,1 +1,12 @@
-@use '../../../node_modules/bootstrap/scss/bootstrap.scss'
+@use "./partials/variables" as *;
+
+@use "./partials/header";
+@use "./partials/main";
+@use "./partials/sections";
+@use "./partials/poster";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

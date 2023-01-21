@@ -1,49 +1,107 @@
-import { reactive } from 'vue'
+import { reactive } from "vue"
 import axios from 'axios'
 
 export const store = reactive({
-    api_key: '37d2ecab9b0d9defe2d091f304102fd2',
-    base_url: 'https://api.themoviedb.org/3/search/multi',
-    query: '',
-
-    config: {
-        method: 'GET',
-        url: 'https://api.themoviedb.org/3/search/multi',
-
-        params: {
-            api_key: '37d2ecab9b0d9defe2d091f304102fd2',
-            query: '',
-        }
+    API_URL: "https://api.themoviedb.org/3/",
+    cover_URL: "https://image.tmdb.org/t/p/",
+    netflix_logo: "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+    results: [],
+    series: [],
+    error: null,
+    integerVote: null,
+    params: {
+        api_key: "047ca6274f89e4b26bb7a49cbb2609b4",
+        query: "m"
     },
-    results: null,
-    error: false,
-    callApi() {
-        axios(store.config)
+    callApi(url) {
+
+        const newUrl = `${url}search/movie?api_key=${this.params.api_key}&query=${this.params.query}`
+
+        const seriesUrl = `${url}search/tv?api_key=${this.params.api_key}&query=${this.params.query}`
+
+        axios.get(newUrl)
             .then(response => {
-                console.log(response.data);
-                store.results = response.data;
-                store.config.params.query = '';
+                this.results = response.data.results
+
+                this.results.forEach(element => {
+
+                    const creditsUrlMovie = `${url}movie/${element.id}/credits?api_key=${this.params.api_key}`
+
+                    axios.get(creditsUrlMovie)
+                        .then(response => {
+
+                            response.data.cast.length = 5
+
+                            element.cast = response.data.cast
+
+                        })
+                        .catch(err => {
+                            console.error(err.message);
+                            this.error = err.message
+                        })
+
+                });
+
             })
             .catch(err => {
-                console.log(err.message);
-                store.error = err.message;
-            });
+                console.error(err.message);
+                this.error = err.message
+            })
+
+        axios.get(seriesUrl)
+            .then(response => {
+
+                this.series = response.data.results
+
+                this.series.forEach(element => {
+
+                    const creditsUrlSerie = `${url}movie/${element.id}/credits?api_key=${this.params.api_key}`
+
+                    axios.get(creditsUrlSerie)
+                        .then(response => {
+
+                            response.data.cast.length = 5
+
+                            element.cast = response.data.cast
+                        })
+                        .catch(err => {
+                            console.error(err.message);
+                            this.error = err.message
+                        })
+
+                });
+            })
+            .catch(err => {
+                console.error(err.message);
+                this.error = err.message
+            })
+
     },
-    flag(language) {
-        if (language === 'en') {
-            return 'https://countryflagsapi.com/png/GB'
-        } else if (language === 'fr') {
-            return 'https://countryflagsapi.com/png/FR'
-        } else if (language === 'it') {
-            return 'https://countryflagsapi.com/png/IT'
-        } else if (language === 'sp') {
-            return 'https://countryflagsapi.com/png/SP'
-        } else if (language === 'de') {
-            return 'https://countryflagsapi.com/png/DE'
-        } else if (language === 'es') {
-            return 'https://countryflagsapi.com/png/ES'
-        } else if (language === 'jp') {
-            return 'https://countryflagsapi.com/png/JP'
+    searchText: '',
+    src: '',
+    checkFlag(movie) {
+        if (movie.original_language === "it") {
+            return "../assets/img/italian_flag.png"
+        } else if (movie.original_language === "en") {
+            return "../assets/img/great_britain_flag.png"
+        } else if (movie.original_language === "fr") {
+            return "../assets/img/france_flag.png"
         }
-    }
+    },
+    starsVote(vote) {
+
+        if (vote === 0 || vote === 1 || vote === 2) {
+            return 1
+        } else if (vote === 3 || vote === 4 || vote === 5) {
+            return 2
+        } else if (vote === 6 || vote === 7) {
+            return 3
+        } else if (vote === 8 || vote === 9) {
+            return 4
+        } else if (vote === 10) {
+            return 5
+        }
+
+    },
+    activeIndex: 0
 })

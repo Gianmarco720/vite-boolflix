@@ -1,12 +1,12 @@
 <script>
-// import single mobie component
-import SingleMovie from "./SingleMovie.vue"
+// import single serie component
+import SingleSerie from "./SingleSerie.vue"
 // import store JS object
 import { store } from '../store.js'
 export default {
-    name: "MovieList",
+    name: "SeriesList",
     components: {
-        SingleMovie
+        SingleSerie
     },
     data() {
         return {
@@ -18,21 +18,18 @@ export default {
 
 <template>
 
-    <!-- section movies  -->
+    <!-- section Series list -->
     <div class="section_container p-3">
 
         <!-- section title  -->
-        <h2 class="text-white">Lista film</h2>
+        <h2 class="text-white">Lista serie TV</h2>
 
-        <!-- row with images covers and info -->
+        <!-- row with images covers and info  -->
         <div class="row flex-nowrap my_row">
-            <SingleMovie v-for="movie in store.results" :movie="movie" />
+            <SingleSerie v-for="serie in store.series" :serie="serie" />
         </div>
 
     </div>
-
-
-
 
 </template>
 

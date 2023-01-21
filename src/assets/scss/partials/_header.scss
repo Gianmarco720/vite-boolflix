@@ -1,0 +1,6 @@
+@use "./variables" as *;
+
+#site_header {
+    background-color: $dark;
+    height: 120px;
+}

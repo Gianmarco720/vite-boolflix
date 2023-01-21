@@ -1,0 +1,26 @@
+@use "./variables" as *;
+
+
+.poster {
+    position: relative;
+    z-index: 1000;
+    overflow-y: auto;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.2;
+        transition: 0.4s;
+    }
+}
+
+.not_found {
+    opacity: 0.2;
+}
+
+.info {
+    overflow-y: scroll;
+}
+
+.info::-webkit-scrollbar {
+    display: none;
+}

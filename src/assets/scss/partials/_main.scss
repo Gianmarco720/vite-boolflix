@@ -1,0 +1,11 @@
+@use "./variables" as *;
+
+.main_container {
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+    background-color: $dark;
+}
+
+.main_container::-webkit-scrollbar {
+    display: none;
+}
